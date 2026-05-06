@@ -1,25 +1,55 @@
 diff --git a/Dockerfile b/Dockerfile
 new file mode 100644
-index 0000000..a49a8d6
+index 0000000..3140d72
 --- /dev/null
 +++ b/Dockerfile
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,31 @@
 +# syntax=docker/dockerfile:1
++
++# ----- fetch CDN deps locally so the runtime is offline-capable -----
++# Tailwind play-CDN + Three.js were originally <script src="https://...">.
++# Boxes with flaky outbound CDN access (China firewall etc.) need them
++# baked in. The patch above also rewrites index.html to point at lib/.
++FROM alpine:3.20 AS libs
++RUN apk add --no-cache curl ca-certificates
++WORKDIR /lib
++ARG TAILWIND_URL=https://cdn.tailwindcss.com
++ARG THREEJS_URL=https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js
++RUN curl -fsSL "${TAILWIND_URL}" -o tailwind.min.js \
++ && curl -fsSL "${THREEJS_URL}"  -o three.min.js \
++ && wc -c tailwind.min.js three.min.js
++
 +FROM nginx:1.27-alpine
 +
 +# Copy the entire upstream static bundle. The site is fully client-side;
-+# index.html pulls Three.js / Tailwind from CDNs and references local
-+# src/, assets/, style.css.
++# index.html references local src/, assets/, style.css plus the lib/
++# bundle we fetch in the libs stage above.
 +COPY index.html style.css game.js /usr/share/nginx/html/
 +COPY src/    /usr/share/nginx/html/src/
 +COPY assets/ /usr/share/nginx/html/assets/
 +COPY docs/   /usr/share/nginx/html/docs/
++COPY --from=libs /lib /usr/share/nginx/html/lib
 +
 +COPY nginx.conf /etc/nginx/conf.d/default.conf
 +
 +EXPOSE 80
 +HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
 +  CMD wget -qO- http://127.0.0.1/healthz >/dev/null 2>&1 || exit 1
+diff --git a/index.html b/index.html
+index 2598f3a..379a2d5 100644
+--- a/index.html
++++ b/index.html
+@@ -5,8 +5,8 @@
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+   <title>SERVER: Survival Protocol</title>
+-  <script src="https://cdn.tailwindcss.com"></script>
+-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
++  <script src="lib/tailwind.min.js"></script>
++  <script src="lib/three.min.js"></script>
+   <script src="src/locales/en.js"></script>
+   <script src="src/locales/zh.js"></script>
+   <script src="src/locales/pt-BR.js"></script>
 diff --git a/nginx.conf b/nginx.conf
 new file mode 100644
 index 0000000..08e136e
