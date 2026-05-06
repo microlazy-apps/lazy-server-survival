@@ -7,9 +7,9 @@ support_mobile: false
 
 screenshots:
   pc:
-    - lazycat/screenshots/01-gameplay.png
-    - lazycat/screenshots/02-build.png
-    - lazycat/screenshots/03-stats.png
+    - lazycat/screenshots/01-gameplay.png   # main menu
+    - lazycat/screenshots/02-build.png      # tutorial overlay on Survival
+    - lazycat/screenshots/03-stats.png      # in-game scene + HUD + toolbar
   mobile: []
 
 description:
