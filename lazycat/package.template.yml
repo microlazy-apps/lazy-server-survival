@@ -1,0 +1,74 @@
+package: cloud.lazycat.app.server-survival
+version: ${VERSION}
+name: Server Survival
+description: 3D 塔防游戏 — 在浏览器里学习云架构、扛住流量峰值与 DDoS
+author: pshenok
+license: MIT
+homepage: https://github.com/microlazy-apps/lazy-server-survival
+locales:
+  zh-CN:
+    name: Server Survival
+    description: 自托管 Server Survival —— 在浏览器里玩塔防学云架构
+    usage: |
+      ## 关于 Server Survival
+
+      Server Survival 是一款 3D 浏览器塔防游戏，扮演**云架构师**：
+      搭建并扩容基础设施，承受不断上涨的流量、抵御 DDoS 攻击、
+      管理预算与服务健康，看你能撑多久。
+
+      边玩边学：防火墙、API 网关、消息队列、负载均衡、计算实例、
+      Serverless、CDN、SQL/NoSQL、缓存、搜索引擎、读副本、对象存储 ——
+      全部以可玩组件呈现，每个组件都有成本、容量、维护开销。
+
+      ## 使用
+
+      装好访问 `https://server-survival.{你的微服域名}` 即可开始游戏。
+
+      纯前端（Three.js + Tailwind），无后端、无登录、无数据存储。
+      游戏进度只在浏览器本地。
+
+      ## 模式
+
+      - **生存模式**：流量阶梯式上涨 + 随机事件（成本飙升、容量塌陷、
+        流量爆发、DDoS 浪潮），考验持续应变
+      - **沙盒模式**：自由组合任意架构调试
+      - **教程**：内置引导一步步认识每个组件
+
+      ## 上游
+
+      Upstream: https://github.com/pshenok/server-survival
+      本仓库（懒猫包装）: https://github.com/microlazy-apps/lazy-server-survival
+  en:
+    name: Server Survival
+    description: Self-hosted Server Survival — tower-defense for cloud architects
+    usage: |
+      ## About Server Survival
+
+      Server Survival is a 3D browser tower-defense game where you play as
+      a **Cloud Architect**: build and scale infrastructure to handle
+      rising traffic, defend against DDoS attacks, manage budget and
+      service health — and survive.
+
+      Learn by playing: Firewall, API Gateway, Queue, Load Balancer,
+      Compute, Serverless, CDN, SQL/NoSQL DB, Cache, Search Engine, Read
+      Replica, Storage — all as playable services with cost, capacity and
+      upkeep tradeoffs.
+
+      ## Usage
+
+      Open `https://server-survival.{your-box-domain}` after install.
+
+      Pure frontend (Three.js + Tailwind), no backend, no login, no data
+      collection. Game state lives in your browser.
+
+      ## Modes
+
+      - **Survival** — staircase traffic + random events (cost spikes,
+        capacity drops, traffic bursts, DDoS waves)
+      - **Sandbox** — free-form architecture testing
+      - **Tutorial** — guided walkthrough of every component
+
+      ## Upstream
+
+      Upstream: https://github.com/pshenok/server-survival
+      This wrapper repo: https://github.com/microlazy-apps/lazy-server-survival

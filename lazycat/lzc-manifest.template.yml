@@ -1,0 +1,23 @@
+application:
+  subdomain: server-survival
+  upstreams:
+    - location: /
+      backend: http://main:80
+  public_path:
+    - /
+  health_check:
+    test_url: http://main:80/healthz
+    timeout: 5s
+    start_period: 5s
+
+services:
+  main:
+    image: ${LAZYCAT_IMAGE}
+    environment:
+      - TZ=Asia/Shanghai
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s

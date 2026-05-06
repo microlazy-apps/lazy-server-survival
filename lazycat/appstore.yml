@@ -1,0 +1,49 @@
+source: https://github.com/pshenok/server-survival
+source_author: pshenok
+is_original: false
+keywords: game,tower-defense,cloud,architecture,ddos,3d,three.js,tailwind,survival,learning
+support_pc: true
+support_mobile: false
+
+screenshots:
+  pc:
+    - lazycat/screenshots/01-gameplay.png
+    - lazycat/screenshots/02-build.png
+    - lazycat/screenshots/03-stats.png
+  mobile: []
+
+description:
+  zh-CN: |
+    Server Survival 是一款 3D 浏览器塔防游戏，扮演云架构师，搭建基础设施
+    承受流量与 DDoS 攻击。组件涵盖防火墙、API 网关、队列、负载均衡、计算、
+    Serverless、CDN、SQL/NoSQL、缓存、搜索引擎、读副本、对象存储。
+
+    特性
+    - 3D 实时渲染（Three.js）
+    - 生存 / 沙盒 / 教程 三种模式
+    - 真实云架构组件，成本/容量/维护开销建模
+    - 随机事件：成本飙升、容量塌陷、DDoS 浪潮
+    - 13 类基础设施 × T1→T3 升级路径
+
+    完全前端实现，无后端，无登录，无数据收集。
+
+    上游项目: https://github.com/pshenok/server-survival
+    本仓库（懒猫包装）: https://github.com/microlazy-apps/lazy-server-survival
+  en: |
+    Server Survival is a 3D browser tower-defense game where you play as
+    a Cloud Architect, building infrastructure to handle traffic and DDoS
+    attacks. Components include Firewall, API Gateway, Queue, Load
+    Balancer, Compute, Serverless, CDN, SQL/NoSQL, Cache, Search Engine,
+    Read Replica, Storage.
+
+    Features
+    - 3D real-time rendering (Three.js)
+    - Survival / Sandbox / Tutorial modes
+    - Realistic cloud-component modeling: cost, capacity, upkeep
+    - Random events: cost spikes, capacity drops, DDoS waves
+    - 13 service types × T1→T3 upgrade paths
+
+    Pure frontend, no backend, no login, no data collection.
+
+    Upstream project: https://github.com/pshenok/server-survival
+    This wrapper repo: https://github.com/microlazy-apps/lazy-server-survival

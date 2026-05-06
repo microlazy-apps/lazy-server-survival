@@ -1,0 +1,63 @@
+diff --git a/Dockerfile b/Dockerfile
+new file mode 100644
+index 0000000..a49a8d6
+--- /dev/null
++++ b/Dockerfile
+@@ -0,0 +1,16 @@
++# syntax=docker/dockerfile:1
++FROM nginx:1.27-alpine
++
++# Copy the entire upstream static bundle. The site is fully client-side;
++# index.html pulls Three.js / Tailwind from CDNs and references local
++# src/, assets/, style.css.
++COPY index.html style.css game.js /usr/share/nginx/html/
++COPY src/    /usr/share/nginx/html/src/
++COPY assets/ /usr/share/nginx/html/assets/
++COPY docs/   /usr/share/nginx/html/docs/
++
++COPY nginx.conf /etc/nginx/conf.d/default.conf
++
++EXPOSE 80
++HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
++  CMD wget -qO- http://127.0.0.1/healthz >/dev/null 2>&1 || exit 1
+diff --git a/nginx.conf b/nginx.conf
+new file mode 100644
+index 0000000..08e136e
+--- /dev/null
++++ b/nginx.conf
+@@ -0,0 +1,35 @@
++server {
++    listen 80 default_server;
++    listen [::]:80 default_server;
++    server_name _;
++    root /usr/share/nginx/html;
++    index index.html;
++
++    location = /healthz {
++        access_log off;
++        add_header Content-Type text/plain;
++        return 200 "ok\n";
++    }
++
++    # SPA-ish: serve files; fall back to 404 (no SPA router here, just statics).
++    location / {
++        try_files $uri $uri/ =404;
++    }
++
++    # Long-cache static assets, but keep index.html short-lived so
++    # clients pick up upstream updates after an upgrade.
++    location ~* \.(?:js|css|gif|png|svg|woff2?|ttf|mp3|wav|ogg|jpg|jpeg)$ {
++        try_files $uri =404;
++        expires 7d;
++        add_header Cache-Control "public, max-age=604800";
++    }
++
++    location = /index.html {
++        add_header Cache-Control "public, max-age=60";
++    }
++
++    add_header X-Content-Type-Options "nosniff" always;
++    add_header Referrer-Policy "no-referrer" always;
++    client_max_body_size 1m;
++    access_log off;
++}
