@@ -5,6 +5,11 @@ description: 3D 塔防游戏 — 在浏览器里学习云架构、扛住流量�
 author: pshenok
 license: MIT
 homepage: https://github.com/microlazy-apps/lazy-server-survival
+
+unsupported_platforms:
+  - ios
+  - android
+
 locales:
   zh-CN:
     name: Server Survival
