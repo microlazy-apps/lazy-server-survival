@@ -2,6 +2,15 @@
 
 懒猫微服 wrapper for [pshenok/server-survival](https://github.com/pshenok/server-survival)。
 
+## Lazycat appstore identifiers
+
+- **package id**: `cloud.lazycat.app.server-survival`
+- **app_id**: `5342` (recorded 2026-05-08)
+- **subdomain**: `server-survival` → `https://server-survival.<box-domain>`
+- **bootstrap workflow**: when re-running `bootstrap-app.yml` to
+  resubmit a fix, pass `app_id=5342` so the workflow skips
+  `/app/create` (which would 500 on duplicate package).
+
 ## 仓库结构
 
 ```
